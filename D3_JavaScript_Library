@@ -1,0 +1,201 @@
+1)D3 
+
+LINK: https://translate.googleusercontent.com/translate_c?depth=1&hl=pt-BR&prev=search&rurl=translate.google.com.br&sl=en&u=https://d3js.org/&usg=ALkJrhiMMjeLJHwQXwYds04uTBXeoXucUA
+
+(Data-Driven Documents DocumentosOrientados a Dados) is a JavaScript library for visualizing data using web standards. D3 helps you
+bring data to life using SVG, Canvas and HTML. D3 combines powerful visualization and interaction techniques with a a data-driven approach
+to DOM manipulation, giving you the full capabilities of modern browsers and the freedom to design the right visual interface for your data.
+
+D3.js is a JavaScript library for manipulating documents based on data. D3 allows you to bind(associar) arbitrary data to a Document Object 
+Model (DOM), and then apply data-driven transformations to the document. For example, you can use D3 to generate an HTML table from an array
+of number(matriz de números). Or, use the same data to create an interactive SVG bar chart(gráfico de barras interativo SVG) with smooth(suaves) transitions and interaction. D3 solves the problem: efficient manipulation of documents based on data. This avoids(evita) proprietary represen
+tation and affords(oferece) extraordinary flexibility, exposing(expondo) the full capabilities of web standards(expondo todas as capacidades 
+de padrões da web) such as(como) HTML, SVG CSS. 
+
+***************Selections*********************
+Modifying documents using the W3C DOM API is tedious: the method namesare verbose: the method names are verbose, and the imperative approach 
+requires manual iteration: For example, to change text color of paragraph elements:
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+
+	<script type="text/javascript">
+	    function test(){
+		var paragraphs = document.getElementsByTagName("p");
+	        alert(paragraphs.length);
+		for(var i = 0; i < paragraphs.length; i++){
+		    var paragraph = paragraphs.item(i);
+		    //alert(paragraph);
+		    paragraph.style.setProperty("color", "orange", null);
+    		}
+	    }
+	    
+	
+	</script>
+
+</head>
+<body onload="test();">
+	<p>Primeiro Parágrafo</p>
+	<p>Segundo Parágrafo</p>
+	<p>Terceiro Parágrafo</p>
+</body>
+</html>
+
+D3 employs(emprega) a declarative approach, operating on arbitrary sets(conjuntos) of nodes called selections. For example, you can rewrite the 
+above loop as:
+Note: you can still manipulate individual nodes as needed(conforme necessário)
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+	<script src="https://d3js.org/d3.v4.min.js"></script> 
+ 
+	<script type="text/javascript">
+	    function test(){
+		d3.selectAll("p").style("color", "blue");
+    		d3.select("body").style("background-color", "green");
+	    }
+	    
+	
+	</script>
+
+</head>
+<body onload="test();">
+	<p>Primeiro Parágrafo</p>
+	<p>Segundo Parágrafo</p>
+	<p>Terceiro Parágrafo</p>
+</body>
+</html>
+
+Selectors are defined by the W3C Selectors API and supported natively by modern browsers. The above examples select nodes by tag name ("p" and "body)
+Elements may be selected using a variety og predicates, including containment, attribute values, class and ID.
+
+D3 provides numerous methods for mutating nodes(mutação nós): setting attributes(definição de atributos) or styles; registering event listeners;
+adding, removing or sorting(classificar) nodes; Direct access to the underlying(subjacente) DOM is also possible, as each(uma vez que) D3 selection
+is simply an array of nodes.
+
+**********Dynamic Properties************8
+Readers familiar (leitores familiarizados) with other DOM frameworks such as(tais como) jQuery ou Prototype should immediately recognize 
+similarities with D3. Yet styles, attributes, and other properties can be specified as functions of data in D3, not just simple constants. 
+Despite(apesar de) their apparent simplicity, these functions can be surprisingly powerful; the d3.geo.path function, for exampl, projects
+geographic coordinates into SVG path data.
+For example, to randomly color paragraphs:
+d3.selectAll("p").style("color", function() { return "hsl(" + Math.random() * 360 + ",100%,50%)"; }); 
+
+Computed(calculadas) properties often refer to bound data(dados vinculados). Data is specified as an array of values(matriz de valores), and 
+each value is passed as the fist argument (d) to selection functions. With the default join-by-index, the first element in the data array(matriz de
+dados) is passed to the first node in the selection, the second element to the second node, and so on(e assim por diante). For example, if you
+bind(vincular) an array of number to paragraph elements, you can use these numbers to compute dynamic fot sizes ( para calcular o tamanho das fontes dinâmicas):
+ d3.selectAll("p") .data([4, 8, 15, 16, 23, 42]) .style("font-size", function(d) { return d + "px"; }); 
+
+Once data has been bound to the document(uma vez que os dados tenham sido vinculados ao documento), you can omit the data operator; D3 will 
+retrieve(recuperar) the previously-bound data
+
+
+
+
+
+
+
+2)SVG is a language for describing two-dimensional graphics in XML. Scalable Vector Graphics allows for three types of graphic objects:
+vector graphic shapes (paths consisting of straight lines and curves), images and text. Graphical objects can be grouped, styled, 
+transformed and composited into previously rendered objects.
+
+SVG drawings can be interactive and dynamic - Animations can be defined and triggered
+
+
+
+
+
+
+
+
+
+
+
+
+3)<canvas> is an HTML element which can be used to draw graphics using scritping (usually JavaScript).
+
+LINK: https://translate.google.com.br/translate?hl=pt-BR&sl=en&u=https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial&prev=search
+
+Using the <canvas> element is not very difficult, but you do need a basic understanding of JS. The <canvas> element is not supported 
+in some browsers, but is supported in recent versions of all major browsers. The default size of the canvas is 300 x 150. But custom
+sizes can be defined using the HTML height and width property. In order(a fim de) to draw graphics on the canvas we use a JavaScript 
+context object, which creates graphics on the fly.
+
+Le'ts looking at the <canvas> HTML element itself. At the end of this page, you will know how to set up a canvas 2D context and have
+drawn a first example in your browser.
+
+<canvas id="tutorial" width="150" height="150"></canvas>
+At the first sight(À primeira vista) a <canvas> looks like the <img> element, with the only(única) clear difference being that it(é/sendo que ele) doesn't have the "src" and alt attributes. Indeed(Na verdade), the <canvas> element has only two attributes, width and height.
+These are both(Estes são ambos) optional and can also be set (definidos) using DOM properties
+ele) 
+
+Note: The DOM (Document Object Model) is an API that represents and interacts with any HTML or XML document. The DOM is a document 
+model loaded in the browser and representing the document as a node tree, where each node represents part of the document(an element,
+text string). The DOM is one of the most-used APIs on the Web because it allows code running in a browser to access and interact with 
+every node in the document. Nodes can be created, moved and changed. Event listeners can be added to nodes and triggered(disparados)
+on occurrence of a giben event
+
+When no width and height attributes are specified , the canvas will initially be(será inicialmente) 300 pixels wid and 150 pixels height.
+The element can be sized arbitrarily by CSS, but during rendering(processamento) the image is scaled(dimensionada) to fit(caber) its
+layout size. The id attribute isn't specific to the <canvas> element but is one of the global HTML attributes which can be applied 
+to any HTML element. 
+
+The canvas element can be styled(denominado) just like any(como qualquer) image (margin, borderm, background). The canvas differs from
+an <img> tag in that(em que), like for <video>, <audio>, or <picture> elements, it is easy to define some fallback content, to be 
+displayed in older browsers not supporting it. Providing fallback content is very straightforward: just insert the alternate content
+inside the <canvas> element.
+
+For example, we could provide a text description of the canvas content or provide a static image of the dynamically rendered content:
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+
+	<script type="text/javascript">
+		function draw(){
+			var canvas = document.getElementById('canvas1');
+			if(canvas.getContext){
+				var ctx = canvas.getContext("2d");
+				ctx.fillStyle="#7EF7F1";
+				ctx.fillRect(60, 20, 150, 100);
+			}
+		}
+
+		function draw2(){
+			var canvas = document.getElementById('canvas1');
+			var canvas2 = document.getElementById('canvas2');
+			if(canvas.getContext){
+				var ctx = canvas.getContext("2d");
+				ctx.fillStyle="#ACF236";
+				ctx.beginPath();
+				ctx.arc(190, 50, 50, 0, Math.PI*2, false);
+				ctx.closePath();
+				ctx.fill();
+			}
+			
+			var ctx2 = canvas2.getContext("2d");
+			ctx2.fill();
+			
+		}
+	</script>
+
+</head>
+<body onload="draw();draw2();">
+	<canvas id="canvas1" width="300" height="200" style="border: 5px solid #c6c6c6;">
+		current stock price: $3.15 +0.15 preço atual das ações: 3,15 $ 0,15
+	</canvas>
+	
+	<canvas id="canvas2" width="150" height="150">
+		<img src="http://www.giulianaflores.com.br/presentes-de-aniversario/presente-para-mulheres/fascinio-de-rosas-vermelhas/p13527-d1634/?src=homesite4" width="100" height="100" alt="" />
+	</canvas>
+</body>
+</html>
+
+The script above includes a function called draw(), which is executed once the page(assim que a pag)finishes loading:
+

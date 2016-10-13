@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+
+	<script type="text/javascript">
+		function draw(){
+			var canvas = document.getElementById('canvas1');
+			if(canvas.getContext){
+				var ctx = canvas.getContext("2d");
+				ctx.fillStyle="#7EF7F1";
+				ctx.fillRect(60, 20, 150, 100);
+			}
+		}
+
+		function draw2(){
+			var canvas = document.getElementById('canvas1');
+			var canvas2 = document.getElementById('canvas2');
+			if(canvas.getContext){
+				var ctx = canvas.getContext("2d");
+				ctx.fillStyle="#ACF236";
+				ctx.beginPath();
+				ctx.arc(190, 50, 50, 0, Math.PI*2, false);
+				ctx.closePath();
+				ctx.fill();
+			}
+			
+			var ctx2 = canvas2.getContext("2d");
+			ctx2.fill();
+			
+		}
+	</script>
+
+</head>
+<body onload="draw();draw2();">
+	<canvas id="canvas1" width="300" height="200" style="border: 5px solid #c6c6c6;">
+		current stock price: $3.15 +0.15 preço atual das ações: 3,15 $ 0,15
+	</canvas>
+	
+	<canvas id="canvas2" width="150" height="150">
+		<img src="http://www.giulianaflores.com.br/presentes-de-aniversario/presente-para-mulheres/fascinio-de-rosas-vermelhas/p13527-d1634/?src=homesite4" width="100" height="100" alt="" />
+	</canvas>
+</body>
+</html>
