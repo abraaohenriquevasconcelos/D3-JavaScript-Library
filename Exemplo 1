@@ -49,3 +49,12 @@ Exemplo 2:
     </script>
 </body>
 </html>
+
+
+1 - Line selectDiv.selectAll("p" returns an array of all <p> elements in selectDiv. In example 1 this array is empty. In 
+Example 2, this array contains two already exists elements
+
+2 - the line .data(dataArray) specifies two things:
+(i) the data array and, (ii) the key function which assigns(associa) keys the elements  of the data array.These keys 
+determine the enter selection - you can think of the enter selection as the elements in the data array that will be 
+bound to nodes that you specify  .enter().append() methods.
