@@ -1,0 +1,51 @@
+Exemplo 1: o primeiro elemento na matriz de dados é transmitido para o primeiro nó na selecção, o segundo elemento 
+para o segundo nó e assim por diante
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<div id="exemplo1">
+
+</div>
+    <script>
+        dataArray =[10,12,6,8,15];
+        selectDiv = d3.select("#exemplo1");
+
+        selectDiv.selectAll("p").data(dataArray).enter()
+        .append("p").text(function(d){return d;})
+
+
+    </script>
+</body>
+</html>
+
+Exemplo 2:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<div id="exemplo1">
+    <p>Already existing paragraph 1</p>
+    <p>Already existing paragraph 2</p>
+</div>
+    <script>
+        dataArray =[10,12,6,8,15];
+        selectDiv = d3.select("#exemplo1");
+
+        selectDiv.selectAll("p").data(dataArray).enter()
+        .append("p").text(function(d){return d;})
+
+
+    </script>
+</body>
+</html>
