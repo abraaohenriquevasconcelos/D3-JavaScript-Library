@@ -1,0 +1,198 @@
+1)To build visualization with D3, you need to understand JavaScript objects, functions and the method chaining
+paradigm of jQuery; the basics of SVG 
+
+2)To place a rectangle on the canvas, you need to understand that the axis(eixo) starts in the top left 
+corner(começa canto superior esquerdo and counts up(e conta-se) towards(em direção a/para) the bomttom(parte
+inferior) of the screen. An SVG rect is positioned from(está posicionado entre) its top-left corner and 
+has a width and height.
+Here's a diagram of a rectangle positioned at (100, 100) with a height of 100 pixels and a width of 200 pixels.
+*---------------------------------------------------------------------------------------->
+|(0,0)
+|
+|
+|
+|
+|			*-------------------
+|			|(100,100)	   |
+|	  height: 100	|		   |
+|			|	           |
+|			|                  |
+|			--------------------
+|			width: 200
+|
+|
+|
+|
+
+To produce this with D3, add a container div to the page, and the following JavaScript code.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="jquery-2.2.3.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            var rectDemo = d3.select("#rect-demo").append("svg:svg").attr("width", 400).attr("height", 300);
+
+            rectDemo.append("svg:rect").attr("x", 100).attr("y", 100)
+            .attr("height", 100). attr("width", 200);
+
+        });
+    </script>
+</head>
+<body>
+    <div id="rect-demo"></div>
+</body>
+</html>
+
+Not very impressive? However, it does demonstrate how to use D3 API to build an SVG document.
+
+3)Drawing a Bar Chartt
+A vertical bar chart (or column chart) is basically a serires of rectangles with the sizes propotional to the
+data being represented. D3 provides scales to translate between the input (your data) and output (an x ou y
+position on the canvas)
+
+Understanding Scales
+The linear scale is declared like this:
+var xEscala = d3.scale.linear().
+domain([0, 20]).  //your data minimum and maximum
+.gama([0, 100]); //the pixels to map, eg(ex), the width of the diagram
+
+d3.scale.linear() returns a function which above is sotred in the xEscala variable. In use, the xEscala function
+maps between data and pixel positions:
+xEscala(0) // => 0px width
+xEscala(10) // => 50px width
+xEscala(2)   // => 100px width
+
+In D3, scales can be used two ways to set the position of an element. if the data is a simple array of numbers,
+the scale itself can be passed to the attr method:
+attr("x", xEscala)
+
+If the data is more complicated, or if you need to perform additional calculations to adjust the position, you
+can pass a function to attr. It takes two arguments: data and index (which are often que são muitas vezes 
+written as "d" and "i"). Remember that JS functions can accept a variable number of arguments, so if you
+only need datum your function does not need to take index
+
+5)Diagramming(Diagramação) a Bar Chart
+
+In the diagram below, a single rectfrom a bar chart is represented. The canvas is 300 pixels tall and the 
+width is the number of data points multiplied by the bar width bw. Thre are two scale functions , x and y
+The x position of the top left of the rectangle is easy: it is x(i) where "x" is the scale function and i 
+is the index of the current datum. Since(uma vez que) the SVG axis(eixo SVG) is located at the top of the 
+grpah(na parte superios do gráfico), the height h is subtracted from the value of y(datum) t0 get the y
+position
+
+*-------------------------------------------------------------------------------------->*(bw x data.size)
+|(0,0)										        |			
+|											|						
+|                                                                                       |
+|         										|
+|
+|				*(x(i), h-y(datum))					|
+|				---------  ***
+|	  			|  	|   |						|
+|				|	|   |	           
+|				|	|   |						|
+|				|       |   |heigth: y(datum)
+|				|	|   |						|
+|				|       |   |
+|				---------  *** 						|
+|											|				
+|											|											|
+*(0, 300)------------------------------------------------------------------------------>*(bw x data.size)
+
+Example:
+We will create a series of rectangles of the appropriate height along the x(ao longo do eixo x). 
+D3's linear scale will provide functions used to map a data point on the x and y axis (para mapear um 
+ponto de dados no eixo x e y). To draw the rect, first use the selectAll method returns to create a selector,
+then use the data method to binds(ligar) the array of data objects to the selection. Calling enter method
+on the selection will create  any objects(irá criar quaisquer objetos) that don't have corresponding elements 
+in the data array. Since(Como) there's no existing rect returned by the selector, one will created for each
+data element, so it may seem superfluous. However, the selectAll /data / enter sequence can be used to add
+or remove elements from an existing list.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="jquery-2.2.3.min.js"></script>
+
+    <style type="text/css"></style>
+
+    <script>
+
+            $(document).ready(function(){
+                        $.getJSON('ultimaAtualizacao.json', function(data){
+
+                                   console.log(data[7].total);
+                                   var total = data[7].total;
+
+                                    var div = document.getElementById("total");
+                                    div.innerHTML = "<h2>Total de currículos: "+total+"</h2>";
+
+                                    d3.select("body").style("background", "white");
+
+                                    var barWidth = 80;
+                                    var width = (barWidth+10) * data.length;
+                                    var height = 500;
+
+                                    var x =d3.scale.linear().
+                                        domain([0, data.length]).range([0, width]);
+                                    console.log(x);
+
+                                    var y =d3.scale.linear().
+                                        domain([0, d3.max(data, function(datum){ return datum.number; }) ]).
+                                        rangeRound([0, height]);
+                                        /*
+                                    var barDemo = d3.select("#bar-demo").append("svg:svg").
+                                    attr("width", width).
+                                    attr("height", height);*/
+
+                                    d3.json('ultimaAtualizacao.json', function(data){
+                                                      var canvas = d3.select("body").append("svg").attr("width", width).attr("height", height);
+
+                                                      canvas.selectAll("rect").
+                                                      data(data).
+                                                      enter().
+                                                      append("svg:rect").
+                                                      attr("x", function(d, i) { return x(i); }).
+                                                      attr("y", function(d) { return height - y(d.number); }).
+                                                      attr("height", function(data) { return y(data.number); }).
+                                                      attr("width", barWidth).
+                                                      attr("fill", "#2d578b");
+                                                    /*
+                                                    canvas.selectAll("text").data(data).enter().append("text").attr("fill", "black")
+                                                    .attr("y", function(d, i){ return i * 80 + 40;  }).attr("x", function(d, i){ return i * 0;})
+                                                    .text(function(d){ return "Ano: "+d.year+" | "+parseFloat((d.number*100/total).toFixed(2))+"%"; });
+                                                    */
+
+                                    });
+                        });
+            });
+
+
+
+    </script>
+
+</head>
+<body>
+    <h1>Filtro: Última Atualização</h1>
+    <div id="total"></div><br/><br/>
+
+
+
+</body>
+</html>
+
+To add number inside the bars, svg:text elements must be positioned in the same place as the top of the bar
+and padding add to make it look right(que a parte superior da barra). The svg:text element has a lot of 
+attributes for positioning and formatting. In this example, dx, dy, text-anchor and style are used.
+
+Again, selectAll is used get a selection of elements, data is bound to them with data and then enter is used
+to add the elements to the chart
+
