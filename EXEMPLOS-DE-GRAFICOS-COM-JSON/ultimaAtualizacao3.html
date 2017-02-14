@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="jquery-2.2.3.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <script>
+            var json;
+
+            $(function(){
+                $.getJSON("ultimaAtualizacao.json", function(data){
+                    //console.log(data[2].year); //Teste do valor de data
+                    json = data;
+                    //console.log(json[2]); //Teste do valor de json
+
+                     var total = data[7].total;
+                    years = []
+                    numbers = []
+
+                    $.each(json, function(i, d){
+                        //console.log(d.year); //Teste do valor de d
+                        if(d.year != undefined){ years.push(d.year); }
+                        if(d.number != undefined){ numbers.push(d.number); }
+                    });
+
+                    $("#container").highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title:{
+                            text: 'Últimas Atualizações dos Currículos Lattes'
+                        },
+                        subtitle: {
+                            text: 'Total de Currículos : '+total
+                        },
+                        xAxis:{
+                            categories: years,
+                            crosshair: true
+                        },
+                        yAxis:{
+                            min: 0,
+                            title: 'Currículos'
+                        },
+                        tooltip:{
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.0f} </b></td></tr>'
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },
+                        series:[{
+                            name: 'Currículos',
+                            data: numbers
+                        }]
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="container" style="max-width: 610px; height: 400px; margin: 0 auto"></div>
+</body>
+</html>

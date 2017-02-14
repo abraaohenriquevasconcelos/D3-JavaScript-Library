@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css">
+   	svg{
+   		background: lightblue;
+   	}
+   </style>
+
+</head>
+<body>
+
+	<script>
+		var dataArray = [15, 50, 70, 99, 10];
+
+		var width = 500;
+		var height = 500;
+	
+		var canvas = d3.select("body")
+					 .append("svg")
+					 .attr("width", width)
+					 .attr("height", height);
+     
+		var widthScale = d3.scale.linear()
+						.domain([0, 100]) //maior e menor valor dos dados 
+						.range([0, width]); //0 corresponde a 0 e 80 corresponde a largura do svg
+
+		var colorScale = d3.scale.linear()
+						.domain([0, 80])
+						.range(["red", "blue"]);
+
+		var bars = canvas.selectAll("rect")
+					.data(dataArray)
+					.enter()
+					.append("rect")
+					.attr("width", function(d){
+						//return console.log(data);
+						return widthScale(d);
+					})
+					.attr("height", 50)
+					.attr("y", function(d, index){
+						return index * 100;
+					})
+					.attr("fill", function(d){
+						return colorScale(d);
+					});
+		
+		console.log(bars);
+   	</script>
+
+
+
+</body>
+</html>
+

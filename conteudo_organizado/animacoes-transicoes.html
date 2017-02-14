@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css">
+   	svg{
+   		background: rgb(236, 240, 241);
+   		display: block;
+   		margin: auto;
+   		margin-top: 100px;
+   	}
+   </style>
+
+</head>
+<body>
+
+	<script>
+		var dataArray = [30, 15, 50, 70];
+
+		var width = 500;
+		var height = 500;
+	
+		var canvas = d3.select("body")
+					 .append("svg")
+					 .attr("width", width)
+					 .attr("height", height);
+     
+		var widthScale = d3.scale.linear()
+						.domain([0, 80]) //maior e menor valor dos dados 
+						.range([0, width]); //0 corresponde a 0 e 80 corresponde a largura do svg
+
+		var colorScale = d3.scale.linear()
+						.domain([0, 80])
+						.range(["rgb(52, 152, 219)", "rgb(231, 76, 60)"]);
+
+		var bars = canvas.selectAll("rect")
+					.data(dataArray)
+					.enter()
+					.append("rect")
+					.attr("width", 10)
+					.attr("height", 50)
+					.attr("y", 0)
+					.attr("fill", "rgb(142, 68, 173)");
+		
+
+		console.log(bars);
+
+
+		bars.transition()
+		.attr("y", function(d, index){
+			return index * 100;
+		})
+		.duration(3500)
+		.transition()
+		//.delay(2000)
+		.duration(3500)
+		.attr("width", function(d){
+			//return console.log(data);
+			return widthScale(d);
+		})
+		//.transition()
+		.attr("fill", function(d){
+			return colorScale(d);
+		});
+   	</script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,23 @@
+1) When building a chart such as a bar chart, you'll want an evenly divided space(espaço igualmente dividido) on your x axis. You could divide the space up(espaço acima) with your own manual calculations, accounting for space available. Or, you could have d3 do the calculation for you via a rangeBand. There are a couple different scales built into d3. Some for(alguns dos) comparative numbers, such as d3.scale.linear; some for(alguns para) discrete data sets(conjuntos de dados discretos), such as d3.scale.ordinal
+
+
+
+A sclale maps visual space to data space.(Uma escala mapeia o espaço visual para o espaço de dados)
+
+The visual space of a 	scale is the "range". The data space is the "domain"
+
+/*************************************************************************************************************
+**************************************************************************************************************
+*************************************************************************************************************/
+
+2) Let's say we have a data domain of all the letters in the alphabet. We'll put the letters on the x-axis, running horizontally along our chart(correndo horizontalmente ao longo). We want to space out each letter's bar evenly across(uniformemente através) the visual space or range. If we did our own math, it might look like this(poderia ser assim)
+
+/*************************************************************************************************************
+**************************************************************************************************************
+*************************************************************************************************************/
+
+3) D3.scale.ordinal.rangeBands
+rangeBands will evenly divide(igualmente dividirá) a space up for you into bands(faixas) across the range(através da escala)
+
+"x" becomes our scale function, mapping the domain, which is all letters to the range. The range is specified as bands using rangeRoundBands. THIS IS DIFFERENT THAN rangeBands IN THAT ALL SPACES ARE GUARANTEED 
+ordinal.rangeBands(interval[, padding[, outerPadding]])

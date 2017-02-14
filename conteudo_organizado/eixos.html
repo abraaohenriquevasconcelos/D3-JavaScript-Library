@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css">
+   	svg{
+   		background: rgb(236, 240, 241);
+   		display: block;
+   		margin: auto;
+   		margin-top: 100px;
+   	}
+   </style>
+
+</head>
+<body>
+   
+   <script>
+      /*
+      1) D3 Axis Component
+      
+      2)Given a data set and D3 scales Axis component allows for easy addition of a horizontal-axis and vertical-axis to any graph
+      
+      3)D3 figures out for you how to draw the vertical axis line, the vertical axis ticks, the correct spacing of axis ticks
+      
+      4)D3.js also figures out for you how to draw the horizontal axis line, the horizontal axis ticks, the correct spacing to make the axis visually appealing and may other things.
+      
+      5)From the earliest math classes, we were told to add axes and labels to our graphs. In normal math coordinates. 
+      
+      6)A large portion of the charts and graphs we build using D3 contain a Horizontal Axis and a Vertical Axis. We will call the Horizontal Axis the x-axis and the Vertical Axis the y-axis. When we use the D3 Axes Component(quando usamos o componente de eixos), the axis function(a função de eixo) will return lines, ticks and labels.
+      
+      7)Before we get into the axis position(posição do eixo), axis labels, axis lines, we will see about the scale of the axis first (escala do eixo). The Scale of the Axis tells us the following information: the minimum number, the maximum number, what type of scale we are dealing with(quantitative, time, ordinal)
+
+      var axisScale = d3.scale.linear()
+                      .domain([0, 100])
+                      .range([0,100])
+      D3 allows us to pass this scale function to the axis function in order to provide all of the information needed to properly construct the axis. 
+      
+      8)To generate the simplest D3 Axis, we make: var xaxis = d3.svg().axis(); We can then scale the default axis by passing the scale variable to the scale function:
+      var axisScale = d3.scale.linear()
+                      .domain([0,100]) ////maior e menor valor dos dados 
+                      .range([0, 100]);
+
+      var xAxis = d3.svg.axis()
+                  .scale(axisScale);
+      */
+      var width = 600;
+      var height =400;
+      var dataArray = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+   
+      
+      var widthScale = d3.scale.linear()
+                      .domain([0,100]) ////maior e menor valor dos dados 
+                      .range([0, width-100]); //-100 porque o atributo "transform " tem 60 no eixox 
+
+      var colorScale = d3.scale.linear()
+                  .domain([0,100])
+                  .range(["lightgreen", "orange"]);
+
+      var axis = d3.svg.axis()
+                 .ticks(10)
+                 .scale(widthScale);
+
+
+      var canvas = d3.select("body")
+                   .append("svg")
+                   .attr("width", width)
+                   .attr("height", height)
+                   .append("g")
+                   .attr("transform", "translate(45,50)");
+                   //.call(axis);
+                   
+
+      var bars = canvas.selectAll("rect")
+                 .data(dataArray)
+                 .enter()
+                 .append("rect")
+                 .attr("width", function(data){
+                     return widthScale(data);
+                 })
+                 .attr("height", 20)
+                 .attr("fill", function(data){
+                     return colorScale(data);
+                 })
+                 .attr("y", 0);
+   
+      canvas.append("g")
+      .attr("transform", "translate(0, 190)")
+      .call(axis);
+
+      bars.transition()
+      .attr("y", function(d, index){
+         return index * 21;
+      })
+      .duration(6500);
+   </script>
+</body>
+</html>

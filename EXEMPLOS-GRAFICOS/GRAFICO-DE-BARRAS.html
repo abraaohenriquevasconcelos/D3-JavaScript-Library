@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css"></style>
+
+</head>
+<body>
+sdfd
+	<script>
+		var dataArray = [30, 15, 50];
+	
+		var canvas = d3.select("body")
+					 .append("svg")
+					 .attr("width", 500)
+					 .attr("height", 500);
+     
+		var bars = canvas.selectAll("rect")
+					.data(dataArray)
+					.enter()
+					.append("rect")
+					.attr("width", function(d){
+						return d * 10;
+					})
+					.attr("height", 50)
+					.attr("y", function(d, index){
+						return index * 100;
+					})
+					.attr("fill", "blue");
+		
+		console.log(bars);
+   	</script>
+
+
+
+</body>
+</html>
+

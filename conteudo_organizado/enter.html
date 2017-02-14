@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css">
+   	svg{
+   		background: rgb(236, 240, 241);
+   		display: block;
+   		margin: auto;
+   		margin-top: 100px;
+   	}
+   </style>
+
+</head>
+<body>
+   <p>
+      dados > elementos DOM -> "enter" adicionar elementos a página<br />
+
+      dados < elementos DOM -> nesse caso temos menos dados do que elementos na página -> "exit"<br />
+
+      dados = elmentos DOM -> "update" 
+   </p>
+
+   <script>
+      //1 passo selecionar o corpo da página
+      //2 passo selecionar todas as tags p
+      //3 passo relaciona todas as tags "p" aos dados
+      //4 e se faltar tags "p" vamos adicionar até ter o suficiente pra apresentar os dados 
+      //5 o resultado do "selectAll" é zero, sabendo que não tem nenhuma tag p, temos que usar o método de entrada "enter()" para adicionar
+      //uma tag "p" pra cada dado
+      d3.select("body").selectAll("p")
+      .data([4, 8, 15, 16, 23, 42])
+      .enter().append("p")
+      .text(function(data){
+         return "*"+data+"*";
+      });      
+
+         
+     
+   </script>
+</body>
+</html>

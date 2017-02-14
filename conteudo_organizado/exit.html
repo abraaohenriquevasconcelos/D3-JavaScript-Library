@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+
+   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+   <script src="js/jquery-2.2.3.min.js"></script>
+
+   <style type="text/css">
+   	svg{
+   		background: rgb(236, 240, 241);
+   		display: block;
+   		margin: auto;
+   		margin-top: 100px;
+   	}
+   </style>
+
+</head>
+<body>
+   <p>
+      dados > elementos DOM -> "enter" adicionar elementos a página<br />
+
+      dados < elementos DOM -> nesse caso temos menos dados do que elementos na página -> "exit"<br />
+
+      dados = elmentos DOM -> "update" 
+   </p>
+
+   <script>
+
+      var data = [50, 50];
+
+     var canvas = d3.select("body").append("svg")
+                  .attr("width", 1000)
+                  .attr("height", 500)
+                  .style("background", "rgb(236, 240, 241)");
+
+      var circulo = canvas.append("circle")
+                    .attr("cx", 480)
+                    .attr("cy", 290)
+                    .attr("r", 20)
+                    .attr("fill", "rgb(46, 204, 113)");
+      var circulo2 = canvas.append("circle")
+                    .attr("cx", 680)
+                    .attr("cy", 390)
+                    .attr("r", 20)
+                    .attr("fill", "rgb(231, 76, 60)");
+
+      var circulo3 = canvas.append("circle")
+                    .attr("cx", 280)
+                    .attr("cy", 190)
+                    .attr("r",20)
+                    .attr("fill", "rgb(52, 152, 219)");
+
+      //Vamos pegar todos os circulos e relacionar aos dados na hora que acontece isso sobra dois bolinhas a mais e entao usamo "exit"
+      //d3.selectAll("circle")
+      //.data(data)
+      //.exit()
+      //.remove()
+      //.attr("fill", "red");//as bolinhas estão sobrando vão ser pintadas de vermelho
+
+
+      //Agora vamos selecionar todos os círculos e relacionar com os dados
+      d3.selectAll("circle")
+      .data(data)
+      .attr("r", function(data){
+         return data;
+      })
+      .exit()
+      .attr("r", 10);
+
+
+
+   </script>
+</body>
+</html>
